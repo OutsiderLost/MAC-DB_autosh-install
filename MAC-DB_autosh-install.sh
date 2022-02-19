@@ -1,6 +1,6 @@
 echo "For windows -> http://www.nirsoft.net/utils/mac_address_lookup_find.html"
 echo " "
-# mkdir MACview-Windows wget && http://www.nirsoft.net/utils/macaddressview.zip && mv macaddressview.zip MACview-Windows/macaddressview.zip
+# mkdir MACview-Windows && wget http://www.nirsoft.net/utils/macaddressview.zip && mv macaddressview.zip MACview-Windows/macaddressview.zip
 
 echo "Download MAC database"
 echo " "
