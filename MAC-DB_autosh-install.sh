@@ -12,6 +12,8 @@ echo " "
 
 wget http://standards-oui.ieee.org/oui/oui.txt
 
+cp oui.txt /home/kali/oui.txt
+
 sleep 3
 
 echo " "
@@ -21,7 +23,7 @@ echo '#!/bin/bash' > oui-script.txt
 echo '   ' >> oui-script.txt
 echo 'MAC="$(echo $1 | sed "s/ //g" | sed "s/-//g" | sed "s/://g" | cut -c1-6)";' | sed "s/\"/\'/2;s/\"/\'/2;s/\"/\'/2;s/\"/\'/2;s/\"/\'/2;s/\"/\'/2" >> oui-script.txt
 echo '  ' >> oui-script.txt
-echo 'result="$(grep -i -A 4 ^$MAC ./oui.txt)";' >> oui-script.txt
+echo 'result="$(grep -i -A 4 ^$MAC ./oui.txt 2>/dev/null || grep -i -A 4 ^$MAC /home/kali/oui.txt 2>/dev/null || grep -i -A 4 ^$MAC /root/oui.txt 2>/dev/null || grep -i -A 4 ^$MAC /usr/share/ieee-data/oui.txt)";' >> oui-script.txt # offline: /usr/share/ieee-data/oui.txt
 echo '  ' >> oui-script.txt
 echo 'if [ "$result" ]; then' >> oui-script.txt
 echo '    echo "For the MAC $1 the following information is found:"' >> oui-script.txt
@@ -32,14 +34,16 @@ echo 'fi' >> oui-script.txt
 # -----------------------------------
 sleep 3
 
-mv oui-script.txt oui.sh
+mv oui-script.txt /usr/bin/oui.sh
+chmod +x /usr/bin/oui.sh
 
 sleep 2
 
 echo " "
 echo "use -> bash oui.sh MAC"
 echo " "
-echo "example -> bash oui.sh 50:46:5D:6E:8C:20"
+echo "example -> oui.sh 50:46:5D:6E:8C:20"
 echo " "
 
-bash oui.sh 50:46:5D:6E:8C:20
+oui.sh 50:46:5D:6E:8C:20
+echo " "
